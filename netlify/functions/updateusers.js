@@ -11,7 +11,7 @@ const FIXED_ADMIN = {
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const REPO_OWNER = process.env.REPO_OWNER || "virtualformacion";
-const REPO_NAME = process.env.REPO_NAME || "streaming-perez";
+const REPO_NAME = process.env.REPO_NAME || "going-merry";
 const FILE_PATH = process.env.FILE_PATH || "script.js";
 const BRANCH = process.env.BRANCH || "main";
 
