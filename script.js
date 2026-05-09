@@ -1,6 +1,5 @@
 // ========== USUARIOS AUTORIZADOS ==========
 const USERS = [
-    { username: "cliente8570", password: "23143", expiresAt: new Date("2026-02-28"), emails: ["villadiegokaren38+promocion@gmail.com","villadiegokaren38+parades@gmail.com"] },
     { username: "cliente845", password: "11223344", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+laotra@gmail.com"] },
     { username: "cliente886", password: "223344", expiresAt: new Date("2026-02-28"), emails: ["juancaww1929+88@gmail.com","garantiadisney@streamingperez.xyz"] },
     { username: "cliente483", password: "38923", expiresAt: new Date("2026-02-25"), emails: ["josgalaxy02+goa@gmail.com"] },
