@@ -1,6 +1,5 @@
 // ========== USUARIOS AUTORIZADOS ==========
 const USERS = [
-    { username: "cliente312", password: "12145", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+nuves@gmail.com","josgalaxy02+54@gmail.com","disneyperu@streamingperez.xyz","juancaww192+76@gmail.com","villadiegokaren38+laea@gmail.com"] },
     { username: "cliente493", password: "12178", expiresAt: new Date("2026-02-28"), emails: ["standard@streamingperez.xyz","josgalaxy02+zona@gmail.com","villadiegokaren38+venezuela@gmail.com","josgalaxy02+zona@gmail.com","disney+ventas@streamingperez.xyz"] },
     { username: "cliente8570", password: "23143", expiresAt: new Date("2026-02-28"), emails: ["villadiegokaren38+promocion@gmail.com","villadiegokaren38+parades@gmail.com"] },
     { username: "cliente845", password: "11223344", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+laotra@gmail.com"] },
