@@ -1,0 +1,146 @@
+// ========== USUARIOS AUTORIZADOS ==========
+const USERS = [
+    { username: "vip121", password: "12131", expiresAt: new Date("2026-02-28"), emails: ["villadiegokaren38+hermanos@gmail.com","villadiegokaren38+sacunda@gmail.com","villadiegokaren38+sacunda@gmail.com","josedadowke+feriad@gmail.com","josedadowke+festivo@gmail.com","villadiegokaren38+cali@gmail.com","josedadowke+cana@gmail.com","josedadowke+63@gmail.com","josedadowke+72@gmail.com","josedadowke+sonora@gmail.com","josgalaxy02+773@gmail.com","josgalaxy02+100@gmail.com","josgalaxy02+careta@gmail.com","josgalaxy02+miercol@gmail.com","josgalaxy02+france@gmail.com","josgalaxy02+enero@gmail.com","josgalaxy02+5@gmail.com","josgalaxy02+2@gmail.com","villadiegokaren38+87@gmail.com","villadiegokaren38+horas@gmail.com","juancaww1929+nuevo@gmail.com","villadiegokaren38+corozo@gmail.com","villadiegokaren38+propero@gmail.com","loro2353@outlook.com","villadiegokaren38+navidad@gmail.com","villadiegokaren38+recardo@gmail.com","villadiegokaren38+diciembe@gmail.com","villadiegokaren38+flores@gmail.com","villadiegokaren38+perez@gmail.com","juancaww1929+lola@gmail.com","juancaww1929+gocho@gmail.com","josgalaxy02+ruben@gmail.com"] },
+    { username: "cliente123", password: "11223344", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02@gmail.com","josgalaxy02+12@gmail.com","josgalaxy02+sopo@gmail.com","josedadowke@gmail.com","josedadowke+51@gmail.com","villadiegokaren38+bici@gmail.com","villadiegokaren38+juanch@gmail.com","juancaww1929+@gmail.com","juancaww1929+54@gmail.com"] },
+    { username: "cliente2242", password: "21213", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+viernes@gmail.com","villadiegokaren38+09@gmail.com"] },
+    { username: "cliente6074", password: "21232", expiresAt: new Date("2026-02-28"), emails: ["josedadowke+78@gmail.com","josgalaxy02+82@gmail.com","josedadowke+yei@gmail.com","josedadowke+trump@gmail.com","villadiegokaren38+duver@gmail.com","josgalaxy02+amen@gmail.com","juancaww1929+56@gmail.com"] },
+    { username: "cliente055", password: "12132", expiresAt: new Date("2026-02-28"), emails: ["soportedisney@streamingperez.xyz","premiundisney@streamingperez.xyz","villadiegokaren38+75@gmail.com","villadiegokaren38+julio@gmail.com","josgalaxy02+regalo@gmail.com","villadiegokaren38+mario@gmail.com","villadiegokaren38+79@gmail.com","josgalaxy02+sabad@gmail.com","villadiegokaren38+saconcho@gmail.com","villadiegokaren38+car@gmail.com","josgalaxy02+satanas@gmail.com","villadiegokaren38+121net@gmail.com","villadiegokaren38+recar@gmail.com","villadiegokaren38+soporte@gmail.com","josefa132@outlook.es","recargassoporte@outlook.es","villadiegokaren38+60@gmail.com","villadiegokaren38+gar@gmail.com","villadiegokaren38+34racargaa@gmail.com","felicidad202511@outlook.com","josgalaxy02+110@gmail.com","villadiegokaren38+63@gmail.com","casares24@outlook.es","josgalaxy02+1@gmail.com","villadiegokaren38+121jod@gmail.com","carlota1231965@outlook.es","ventasdisneypremiun@streamingperez.xyz","ventas+premiun@streamingperez.xyz","josedadowke+88@gmail.com"] },
+    { username: "cliente312", password: "12145", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+nuves@gmail.com","josgalaxy02+54@gmail.com","disneyperu@streamingperez.xyz","juancaww192+76@gmail.com","villadiegokaren38+laea@gmail.com"] },
+    { username: "cliente493", password: "12178", expiresAt: new Date("2026-02-28"), emails: ["standard@streamingperez.xyz","josgalaxy02+zona@gmail.com","villadiegokaren38+venezuela@gmail.com","josgalaxy02+zona@gmail.com","disney+ventas@streamingperez.xyz"] },
+    { username: "cliente8570", password: "23143", expiresAt: new Date("2026-02-28"), emails: ["villadiegokaren38+promocion@gmail.com","villadiegokaren38+parades@gmail.com"] },
+    { username: "cliente845", password: "11223344", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+laotra@gmail.com"] },
+    { username: "cliente886", password: "223344", expiresAt: new Date("2026-02-28"), emails: ["juancaww1929+88@gmail.com","garantiadisney@streamingperez.xyz"] },
+    { username: "cliente483", password: "38923", expiresAt: new Date("2026-02-25"), emails: ["josgalaxy02+goa@gmail.com"] },
+    { username: "cliente799", password: "34217", expiresAt: new Date("2026-02-28"), emails: ["josgalaxy02+99@gmail.com","josedadowke+3@gmail.com","josgalaxy02+julio@gmail.com","josedadowke+66@gmail.com","josedadowke+88@gmail.com","josedadowke+88@gmail.com","villadiegokaren38+1@gmail.com"] },
+    { username: "cliente2547", password: "112547", expiresAt: new Date("2026-02-28"), emails: ["juancaww1929+arley@gmail.com","josgalaxy02+35@gmail.com","villadiegokaren38+diciembe@gmail.com","villadiegokaren38+flores@gmail.com"] }
+];
+
+const MAX_ATTEMPTS = 1000000;
+const BLOCK_HOURS = 24;
+
+// ========== LOGIN ==========
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById("loginUser").value.trim();
+    const password = document.getElementById("loginPass").value.trim();
+    const message = document.getElementById("loginMessage");
+    const user = USERS.find(u => u.username === username);
+    const storageKey = `login_${username}`;
+    const loginData = JSON.parse(localStorage.getItem(storageKey)) || {
+        attempts: 0,
+        blockedUntil: null
+    };
+
+    const now = new Date();
+
+    // Si está bloqueado
+    if (loginData.blockedUntil && now < new Date(loginData.blockedUntil)) {
+        message.textContent = "Has escrito datos incorrectos muchas veces. Vuelve a intentarlo en 24 horas.";
+        return;
+    }
+
+    // Validar usuario
+    if (!user || user.password !== password) {
+        loginData.attempts += 1;
+        if (loginData.attempts >= MAX_ATTEMPTS) {
+            loginData.blockedUntil = new Date(now.getTime() + BLOCK_HOURS * 60 * 60 * 1000).toISOString();
+            message.textContent = "Has escrito datos incorrectos 3 veces. Vuelve a intentarlo en 24 horas.";
+        } else {
+            message.textContent = "Datos incorrectos. Vuelve a intentarlo.";
+        }
+        localStorage.setItem(storageKey, JSON.stringify(loginData));
+        return;
+    }
+
+    // Validar expiración
+    if (now > new Date(user.expiresAt)) {
+        message.textContent = "Tu cuenta ha vencido, ponte en contacto con tu proveedor àra renovar tu cuenta.";
+        return;
+    }
+
+    // Acceso autorizado
+    localStorage.removeItem(storageKey);
+    // Guardar el usuario logueado (para validar correos permitidos)
+    localStorage.setItem("loggedUser", username);
+    document.getElementById("loginContainer").style.display = "none";
+    document.querySelector(".container").style.display = "block";
+});
+
+document.getElementById("emailForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    
+    var email = document.getElementById("email").value;
+
+    // ====== VALIDACIÓN DE CORREOS POR USUARIO ======
+    // Si el usuario tiene emails definidos, solo puede consultar esos.
+    // Si emails está vacío, se permite cualquier correo.
+    const loggedUser = localStorage.getItem("loggedUser");
+    if (loggedUser) {
+        const u = USERS.find(x => x.username === loggedUser);
+        const allowed = Array.isArray(u?.emails) ? u.emails : [];
+        const normalizedEmail = String(email || "").trim().toLowerCase();
+        const allowedNormalized = allowed.map(a => String(a).trim().toLowerCase()).filter(Boolean);
+        if (allowedNormalized.length > 0 && !allowedNormalized.includes(normalizedEmail)) {
+            alert("Consulta con tu proveedor acerca de este correo que deseas obtener codigos");
+            return;
+        }
+    }
+    // ===============================================
+
+    // Crear el mensaje de espera
+    const loadingMessage = document.createElement("div");
+    loadingMessage.textContent = "Espere unos segundos por favor. Consulta en proceso.";
+    loadingMessage.style.position = "fixed";
+    loadingMessage.style.top = "50%";
+    loadingMessage.style.left = "50%";
+    loadingMessage.style.transform = "translate(-50%, -50%)";
+    loadingMessage.style.padding = "10px 20px";
+    loadingMessage.style.backgroundColor = "#000000";
+    loadingMessage.style.border = "1px solid #ccc";
+    loadingMessage.style.borderRadius = "5px";
+    loadingMessage.style.fontSize = "16px";
+    loadingMessage.style.zIndex = "1000";
+    loadingMessage.style.display = "block";
+    
+    // Añadir el mensaje al body
+    document.body.appendChild(loadingMessage);
+
+    try {
+        const response = await fetch("/.netlify/functions/getLastEmail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        
+        // Ocultar el mensaje de espera
+        loadingMessage.style.display = "none";
+
+        // Si encontramos un enlace de Disney+
+        if (data.alert) {
+            // Mostrar el cuerpo del mensaje de Disney+ en el modal
+            document.getElementById("messageBody").innerHTML = data.body; // Insertar el HTML del cuerpo
+            document.getElementById("messageModal").style.display = 'block'; // Mostrar el modal
+        } 
+        // Si encontramos un enlace de Netflix
+        else if (data.link) {
+            window.location.href = data.link; // Redirige automáticamente
+        } 
+        // Si no se encuentra nada
+        else {
+            alert("No se encontró resultado para tu cuenta, vuelve a intentarlo nuevamente.");
+        }
+    } catch (error) {
+        // Ocultar el mensaje de espera en caso de error
+        loadingMessage.style.display = "none";
+        
+        alert("Ocurrió un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+    }
+});
+
+// Función para cerrar el modal
+document.getElementById("closeModal").addEventListener("click", function() {
+    document.getElementById("messageModal").style.display = 'none'; // Ocultar el modal
+});
